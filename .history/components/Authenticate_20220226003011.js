@@ -94,6 +94,7 @@ export default function AuthenticateBTN() {
     //   }
     // });
     let object = MMKV.getMap("OTP");
+    console.log(object);
 
     //MMKV.removeItem("OTP");
     return object;
@@ -175,7 +176,7 @@ export default function AuthenticateBTN() {
         }}
       >
         <Stack.Screen name="CYPHER MAINS" component={Home} />
-        <Stack.Screen name="Scan the QR Code" component={QRScanner} />
+        <Stack.Screen name="Scan the QR Code" component={QRCodeScanner} />
       </Stack.Navigator>
     </NavigationContainer>
   );

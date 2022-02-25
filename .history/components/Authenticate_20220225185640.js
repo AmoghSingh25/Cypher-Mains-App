@@ -87,12 +87,13 @@ export default function AuthenticateBTN() {
         org: "Yahoo3",
       },
     ];
-    // MMKV.setMap("OTP", codes, (error, result) => {
-    //   if (error) {
-    //     console.log(error);
-    //     return;
-    //   }
-    // });
+    MMKV.setMap("OTP", codes, (error, result) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+    });
+    console.log(object);
     let object = MMKV.getMap("OTP");
 
     //MMKV.removeItem("OTP");
@@ -120,7 +121,7 @@ export default function AuthenticateBTN() {
                         key={element.otp}
                         style={{ color: !isDarkMode ? "#1F1C1B" : "#bffff0" }}
                       >
-                        {calcOTP(element.key)}
+                        {element.org}
                       </BodyTitle>
                     </FlexRow>
 
@@ -175,7 +176,7 @@ export default function AuthenticateBTN() {
         }}
       >
         <Stack.Screen name="CYPHER MAINS" component={Home} />
-        <Stack.Screen name="Scan the QR Code" component={QRScanner} />
+        <Stack.Screen name="Scan the QR Code" component={QRCodeScanner} />
       </Stack.Navigator>
     </NavigationContainer>
   );

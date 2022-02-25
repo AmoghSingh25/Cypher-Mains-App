@@ -24,12 +24,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import QRScanner from "./QRScanner";
 import Loading from "./LinearProgression";
 import { ScreenHeight } from "react-native-elements/dist/helpers";
-const Stack = createNativeStackNavigator();
 
 LogBox.ignoreLogs(["VirtualizedLists", "Warning:..."]);
 LogBox.ignoreAllLogs();
 const MMKV = new MMKVStorage.Loader().withEncryption().initialize();
-export default function AuthenticateBTN() {
+export function AuthenticateBTN() {
   const isDarkMode = useColorScheme() === "dark";
   function QRCodeScanner() {
     return <QRScanner />;
@@ -94,7 +93,6 @@ export default function AuthenticateBTN() {
     //   }
     // });
     let object = MMKV.getMap("OTP");
-
     //MMKV.removeItem("OTP");
     return object;
   }
@@ -155,30 +153,6 @@ export default function AuthenticateBTN() {
       </>
     );
   }
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="CYPHER MAINS"
-        screenOptions={{
-          //header styling
-          headerTitle: isDarkMode ? "#bffff0" : "#1f1c1b",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontFamily: "Roboto",
-            color: isDarkMode ? "#bffff0" : "#1f1c1b",
-          },
-          headerStyle: {
-            backgroundColor: isDarkMode ? "#1F1C1B" : "#bffff0",
-          },
-          headerTitleAlign: "center",
-        }}
-      >
-        <Stack.Screen name="CYPHER MAINS" component={Home} />
-        <Stack.Screen name="Scan the QR Code" component={QRScanner} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
 }
 
 const styles = StyleSheet.create({

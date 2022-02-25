@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import {
-  NavigationContainer,
-  CommonActions,
-  useNavigation,
-} from "@react-navigation/native";
-import MMKVStorage, { useMMKVStorage } from "react-native-mmkv-storage";
-
+import { NavigationContainer, CommonActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 export default function QRScanner({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null); //for checking the cam permission
   const [scanned, setScanned] = useState(false); //for checking if the QR code is scanned or not
   const [text, setText] = useState("Not yet scanned"); //setting the scanned QR link
-  // const navigation = useNavigation();
-  const MMKV = new MMKVStorage.Loader().withEncryption().initialize();
 
   const askForCameraPermission = () => {
     //asking camera permission takes place here
@@ -68,14 +60,7 @@ export default function QRScanner({ navigation }) {
       result[i] = splitQR[i].split("=");
       details[i] = result[i][1];
     }
-    let object = MMKV.getMap("OTP");
-    object.push({ key: details[0], org: details[details.length - 1] });
-    MMKV.setMap("OTP", object, (error, result) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-    });
+    const navigation = useNavigation();
     navigation.navigate("CYPHER MAINS");
   }
 

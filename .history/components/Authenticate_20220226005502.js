@@ -175,7 +175,11 @@ export default function AuthenticateBTN() {
         }}
       >
         <Stack.Screen name="CYPHER MAINS" component={Home} />
-        <Stack.Screen name="Scan the QR Code" component={QRScanner} />
+        <Stack.Screen
+          name="Scan the QR Code"
+          component={QRCodeScanner}
+          storage={MMKV}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

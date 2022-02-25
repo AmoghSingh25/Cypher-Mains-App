@@ -76,6 +76,7 @@ export default function QRScanner({ navigation }) {
         return;
       }
     });
+    console.log(MMKV.getMap("OTP"));
     navigation.navigate("CYPHER MAINS");
   }
 

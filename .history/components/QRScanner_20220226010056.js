@@ -9,11 +9,11 @@ import {
 import MMKVStorage, { useMMKVStorage } from "react-native-mmkv-storage";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-export default function QRScanner({ navigation }) {
+export default function QRScanner() {
   const [hasPermission, setHasPermission] = useState(null); //for checking the cam permission
   const [scanned, setScanned] = useState(false); //for checking if the QR code is scanned or not
   const [text, setText] = useState("Not yet scanned"); //setting the scanned QR link
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const MMKV = new MMKVStorage.Loader().withEncryption().initialize();
 
   const askForCameraPermission = () => {
@@ -76,6 +76,7 @@ export default function QRScanner({ navigation }) {
         return;
       }
     });
+    console.log(MMKV.getMap("OTP"));
     navigation.navigate("CYPHER MAINS");
   }
 
