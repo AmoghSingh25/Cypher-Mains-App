@@ -102,12 +102,12 @@ export default function AuthenticateBTN() {
         org: "Yahoo3",
       },
     ];
-    MMKV.setMap("OTP", codes, (error, result) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-    });
+    // MMKV.setMap("OTP", codes, (error, result) => {
+    //   if (error) {
+    //     console.log(error);
+    //     return;
+    //   }
+    // });
     let object = MMKV.getMap("OTP");
 
     //MMKV.removeItem("OTP");
