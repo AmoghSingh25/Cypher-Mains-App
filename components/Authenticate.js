@@ -38,7 +38,7 @@ export default function AuthenticateBTN() {
     return <QRScanner />;
   }
   function deleteOTP(index) {
-    let obj = generateOTP();
+    let obj = MMKV.getMap("OTP");
     obj.splice(index, 1);
     console.log(obj);
     MMKV.setMap("OTP", obj, (error, result) => {
@@ -102,20 +102,22 @@ export default function AuthenticateBTN() {
         org: "Yahoo3",
       },
     ];
-    // MMKV.setMap("OTP", codes, (error, result) => {
-    //   if (error) {
-    //     console.log(error);
-    //     return;
-    //   }
-    // });
     let object = MMKV.getMap("OTP");
-
-    //MMKV.removeItem("OTP");
-    return object;
+    if (object === null) {
+      MMKV.setMap("OTP", codes, (error, result) => {
+        if (error) {
+          console.log(error);
+          return;
+        }
+      });
+    }
   }
 
   function Home({ navigation }) {
     const forceUpdate = useForceUpdate();
+    if (MMKV.getMap("OTP") === null) {
+      generateOTP();
+    }
     return (
       <>
         <ScrollView
@@ -123,7 +125,7 @@ export default function AuthenticateBTN() {
         >
           <View style={{ backgroundColor: isDarkMode ? "#1F1C1B" : "#bffff0" }}>
             <BodyView>
-              {generateOTP().map((element, index) => {
+              {MMKV.getMap("OTP").map((element, index) => {
                 return (
                   <BodyBox key={index} style={styles.viewcontiner}>
                     <FlexRow>
@@ -161,7 +163,7 @@ export default function AuthenticateBTN() {
               zIndex: 2,
             },
           ]}
-          onPress={() => navigation.navigate("Scan the QR Code")}
+          onPress={() => navigation.push("Scan the QR Code")}
         >
           <Text
             style={[

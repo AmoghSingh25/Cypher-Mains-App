@@ -69,14 +69,15 @@ export default function QRScanner({ navigation }) {
       details[i] = result[i][1];
     }
     let object = MMKV.getMap("OTP");
-    object.push({ key: details[0], org: details[details.length - 1] });
+    object.push({ key: details[1], org: details[0] });
     MMKV.setMap("OTP", object, (error, result) => {
       if (error) {
         console.log(error);
         return;
       }
     });
-    navigation.navigate("CYPHER MAINS");
+    console.log(object, details);
+    navigation.push("CYPHER MAINS");
   }
 
   // main camera view point
